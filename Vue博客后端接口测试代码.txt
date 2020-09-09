@@ -1,0 +1,53 @@
+测试代码
+request('/auth/login', 'post', {username: 'hunger1', password: '123456'}).then(data=>{
+    console.log(data);
+})
+
+request('/blog', 'post', {
+    title: '我的博客',
+    content: '## 我的博客',
+    description: '简介'
+}).then(data=>{
+    console.log(data);
+})
+
+request('/blog').then(data=>{
+    console.log(data);
+})
+
+
+注册测试
+curl -d "username=hunger100&password=123456" -X POST "http://blog-server.hunger-valley.com/auth/register"
+登录测试
+curl -d "username=hunger10&password=123456" "http://blog-server.hunger-valley.com/auth/login" -i
+//connect.sid=s%3Ais81qh2f9X6sNh34v5P7BYHuR9oHp1fi.53OxOHL%2FwmmXZRdv%2FtIG6nUAdfpOc5Pl0CVd3Q0IvJA
+登陆验证测试
+curl "http://blog-server.hunger-valley.com/auth" -b "connect.sid=s%3AU7sbbNpUk6nfX6mpD6dFtSry3IBZw8Rd.YKl4aLYWpWdARxIpaRfwCyaiiaT%2FxPj8QfM%2FJjl1fac"
+注销测试
+curl "http://blog-server.hunger-valley.com/auth/logout" -b "connect.sid=s%3Ais81qh2f9X6sNh34v5P7BYHuR9oHp1fi.53OxOHL%2FwmmXZRdv%2FtIG6nUAdfpOc5Pl0CVd3Q0IvJA"
+connect.sid=s%3AWNsW39zdGm93-QPjdJXcxzBJ7I0x5NyS.lToJN1uO5Y6Z3w6vkyl0k1p1XrLoNKboxeUXrcWf49k
+创建博客
+curl -d "title=hello&content=world&description=jirengu" -X POST "http://blog-server.hunger-valley.com/blog" -b "connect.sid=s%3AWNsW39zdGm93-QPjdJXcxzBJ7I0x5NyS.lToJN1uO5Y6Z3w6vkyl0k1p1XrLoNKboxeUXrcWf49k"
+
+curl -d "username=hunger10&password=123456" "http://blog-server.hunger-valley.com/auth/login" -i "connect.sid=s%3ADRGv3pTD9FtkzJ16ikLjTFC1SgtLz8xG.onu12vPWH6VyeQ75gV3XMRHp4J08n4pzF2qZ9KEx79Y"
+
+auth.login({username: 'hunger', password: '123456'}).then(res=>{console.log(res)})
+
+auth.getInfo().then(res=>{console.log(res)})
+
+auth.logout().then(res=>{console.log(res)})
+
+auth.register({username: 'zczzcz', password: '123456'}).then(res=>{console.log(res)})
+
+
+
+登录状态:
+curl -d "username=hunger12&password=123456" "http://blog-server.hunger-valley.com/auth/login" -i
+请求头:
+connect.sid=s%3AR8qM8AprQvHNAtuDoxQdmtv2sEi1qRzN.%2F2idfka74N%2FYWe6sEcDxOJKB9KYkLDwQcu033wYND4w
+验证登录
+curl "http://blog-server.hunger-valley.com/auth" -b "connect.sid=s%3AR8qM8AprQvHNAtuDoxQdmtv2sEi1qRzN.%2F2idfka74N%2FYWe6sEcDxOJKB9KYkLDwQcu033wYND4w"
+删除博客
+curl -X DELETE "http://blog-server.hunger-valley.com/blog/4116" -b "connect.sid=s%3AR8qM8AprQvHNAtuDoxQdmtv2sEi1qRzN.%2F2idfka74N%2FYWe6sEcDxOJKB9KYkLDwQcu033wYND4w"
+
+
