@@ -1,0 +1,2 @@
+在Vue的入口文件main.js 引入element-UI和element-css
+npm i element-ui -S 安装

@@ -1,0 +1,52 @@
+封装了axios
+axios是ajax的升级版，在浏览器和node端口可以使用，也是一个promise
+function request(url, type = 'GET', data = {}) {
+    // url是请求发送过去的地址，type是请求方式，data是请求的信息，如{username: 'hunger1', password: '123456'}
+    return new Promise((resolve, reject) => {
+        let option = {
+            url,
+            method: type
+        }
+        if (type.toLowerCase() === 'get') {
+            option.params = data
+            // 如果是get请求就data放在option.params中
+        } else {
+            option.data = data
+            // 如果是post请求就data放在option.data中
+        }
+        // axios发送请求
+        axios(option).then(res => {
+            console.log(res.data)
+            if (res.data.status === 'ok') {
+                resolve(res.data)
+                // Message.success(res.data.msg)
+				// 成功获取信息调用resolve函数
+            } else {
+                Message.error(res.data.msg)
+                reject(res.data)
+				// 失败则调用resolve函数
+            }
+        }).catch(err => {
+            Message.error('网络异常')
+            reject({ msg: '网络异常' })
+        })
+    })
+}
+感觉axios和ajax很相似，就是promise的应用
+
+
+为什么要封装一个request.js文件？
+
+将发送请求这一块抽离出来放到request.js中，下次想要发送请求时就直接调用request.js中的函数，方便使用。
+在request.js中，主要是对axios做了进一步的封装，里面有一个函数，函数接收三个参数(url，请求类型、数据)
+因为axios发送get和post时它所要求的数据格式是不一样的，因此对数据进行整理，变成符合axios格式的样子。
+然后就是 axios(option).then(...) 普通的promise操作。
+
+在其他两个文件auth.js和blog.js也封装了请求的发送，主要是创建一些诸如 登录 、注册 类的函数，其他页面想要使用
+这些功能的话直接调用函数，传入相关参数就可以了 。 这些函数内部回去调用request函数(也就是我写好的axios请求)。
+
+
+
+
+
+
