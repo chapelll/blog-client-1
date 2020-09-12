@@ -1,3 +1,5 @@
+预览地址: https://chapelll.github.io/vue-blog-preview/
+
 # blog-client
 
 > A Vue.js project
